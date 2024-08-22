@@ -166,11 +166,11 @@ export class PowerJS {
     }, 8000);
   }
 
-  #findOptimalShell(additionalShellNames) {
+  #findOptimalShell(additionalShellNames, shell_args) {
     // Find optimal shell
     for (const sname of additionalShellNames) {
       try {
-        this.#child = spawn(sname);
+        this.#child = spawn(sname, shell_args);
         this.#shell = sname;
         break;
       } catch (e) {
@@ -245,6 +245,7 @@ export class PowerJS {
     autoStart = true,
     extensions = [],
     dlls = {},
+    shell_args = [],
   } = {}) {
     additionalShellNames.push("pwsh", "powershell");
 
@@ -255,7 +256,7 @@ export class PowerJS {
       }
     }
 
-    this.#findOptimalShell(additionalShellNames);
+    this.#findOptimalShell(additionalShellNames, shell_args);
     if (this.#child == null) {
       throw new Error(
         "Cannot find a powershell interpreter! Try installing powershell or adding your one!"
