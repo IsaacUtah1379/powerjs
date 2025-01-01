@@ -187,7 +187,7 @@ export class PowerJS {
     } else {
       this.#working = false; // Powershell Session is initiated!
       clearTimeout(this.#timeouts.start);
-      assert(this.#readerr.replaceAll(/Loading personal and system profiles took \d+ms./g, '').length, 0, "Powershell init has an error!");
+      assert(this.#readerr.replaceAll(/Loading personal and system profiles took \d+ms\./g, '').trim().length, 0, "Powershell init has an error!");
     } // No process() because we need to bypass introduction data (like Powershell version...)
 
     this.#readout = "";
